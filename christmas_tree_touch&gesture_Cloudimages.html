@@ -111,7 +111,13 @@
         }
 
         input[type="file"] { display: none; }
-
+/* //     <!--
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> */
         /* Mode Buttons (Bottom) - New for Touch */
         #mode-bar {
             position: absolute; bottom: 30px; left: 50%;
@@ -204,7 +210,13 @@
             </div>
             <div class="hint-text">Cloud Images Loaded. Add local files if needed.</div>
         </div>
-
+    <!--
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
         <!-- 触屏模式切换按钮 -->
         <div id="mode-bar">
             <div class="mode-btn" onclick="setMode('TREE')" title="Tree Mode">🎄</div>
@@ -284,6 +296,12 @@
         const camBtn = document.getElementById('cam-btn');
         let isCameraRunning = false;
 
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
         window.setMode = (mode) => {
             if (mode === 'FOCUS_RANDOM') {
                 STATE.mode = 'FOCUS';
@@ -387,7 +405,12 @@
                 lastTap = currentTime;
             });
         }
-
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
         // --- 核心 Three.js 逻辑 ---
         function initThree() {
             const container = document.getElementById('canvas-container');
@@ -454,7 +477,12 @@
             caneTexture.wrapS = THREE.RepeatWrapping; caneTexture.wrapT = THREE.RepeatWrapping;
             caneTexture.repeat.set(3, 3);
         }
-
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
         // --- 粒子与图片系统 ---
         function createSnow() {
             const geometry = new THREE.BufferGeometry();
@@ -538,7 +566,12 @@
                 }
                 const lerpSpeed = (mode === 'FOCUS' && this.mesh === focusTargetMesh) ? 5.0 : 2.0; 
                 this.mesh.position.lerp(target, lerpSpeed * dt);
-
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
                 if (mode === 'SCATTER') {
                     this.mesh.rotation.x += this.spinSpeed.x * dt;
                     this.mesh.rotation.y += this.spinSpeed.y * dt;
@@ -591,7 +624,12 @@
             const greenMat = new THREE.MeshStandardMaterial({ color: CONFIG.colors.deepGreen, metalness: 0.2, roughness: 0.8, emissive: 0x002200, emissiveIntensity: 0.2 });
             const redMat = new THREE.MeshPhysicalMaterial({ color: CONFIG.colors.accentRed, metalness: 0.3, roughness: 0.2, clearcoat: 1.0, emissive: 0x330000 });
             const candyMat = new THREE.MeshStandardMaterial({ map: caneTexture, roughness: 0.4 });
-
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
             for (let i = 0; i < CONFIG.particles.count; i++) {
                 const rand = Math.random();
                 let mesh, type;
@@ -656,7 +694,12 @@
             particleSystem.push(new Particle(group, 'PHOTO', false));
             updatePhotoLayout();
         }
-
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
         function handleImageUpload(e) {
             const files = e.target.files;
             if(!files.length) return;
@@ -711,7 +754,12 @@
             box.innerText = txt; box.style.display = 'block';
             setTimeout(() => { box.style.display = 'none'; }, 3000);
         }
-
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
         async function initMediaPipe() {
             if (isCameraRunning) return;
             camBtn.innerText = "Initializing...";
@@ -782,7 +830,12 @@
                 STATE.hand.detected = false;
             }
         }
-
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
         function setupEvents() {
             window.addEventListener('resize', () => {
                 camera.aspect = window.innerWidth / window.innerHeight;
@@ -829,7 +882,12 @@
                     STATE.rotation.y += 0.1 * dt; 
                 }
             }
-
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
             mainGroup.rotation.y = STATE.rotation.y;
             mainGroup.rotation.x = STATE.rotation.x;
 
@@ -837,8 +895,14 @@
             updateSnow();
             composer.render();
         }
-
+//   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture)
+//   - @Author: wp/electronicminer qq:2013248845
+//   - @Date: 2025-12-07
+//   - @Description: 3D Christmas tree with dual control: AI Hand Gestures + Touch/Mouse Interaction.
+//   - 如需使用或分发，请务必保留此作者声明。
+// --> 
         init();
     </script>
 </body>
+
 </html>
