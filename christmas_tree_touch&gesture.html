@@ -384,6 +384,71 @@
             }
         };
 
+      const photoUrls = [
+  "https://github.com/user-attachments/assets/276fc558-c31a-40a8-8742-688b8610222d",
+  "https://github.com/user-attachments/assets/bde0540a-6f64-4f9a-a4cd-a9e84d58a30e",
+  "https://github.com/user-attachments/assets/12f9c58a-0a6d-4dc9-a9fa-0a5203250b8a",
+  "https://github.com/user-attachments/assets/9a3b532b-26dc-417a-a552-87bef08f9141",
+  "https://github.com/user-attachments/assets/b67c54b0-d4ed-4781-8799-06a9d099b8f2",
+  "https://github.com/user-attachments/assets/208449c7-1c32-4e00-849d-0225bf68eef1",
+  "https://github.com/user-attachments/assets/d07f1605-f68d-4a41-aea1-c35f78f3cc04",
+  "https://github.com/user-attachments/assets/7ab22be9-7404-4e3c-84fa-d039a488af46",
+  "https://github.com/user-attachments/assets/bf6dc865-19cf-409a-bae1-b7e5fb1d35d4",
+  "https://github.com/user-attachments/assets/9a15f1a8-869c-4be1-a0d8-9e6dd27cf2d7",
+  "https://github.com/user-attachments/assets/dd710594-79c8-43fe-a2c2-af8b92367f9c",
+  "https://github.com/user-attachments/assets/f8950c8c-f7ea-4ab4-99d2-5a982ed7d1c8",
+  "https://github.com/user-attachments/assets/abc3d68b-f315-4cda-bbd8-25699a6da20e",
+  "https://github.com/user-attachments/assets/66e7ac3b-29b2-436b-b8d7-95b66c756821",
+  "https://github.com/user-attachments/assets/fe313aef-0b6d-456f-96d5-80973728de3e",
+  "https://github.com/user-attachments/assets/917f7699-bdd2-4d1f-add1-6afac97f792b",
+  "https://github.com/user-attachments/assets/d68d37e8-706e-4834-ba38-6b65bd96e522",
+  "https://github.com/user-attachments/assets/ad925054-dc24-402e-957c-7e6ae2d0c24f",
+  "https://github.com/user-attachments/assets/a25b9b07-c8ed-4993-a6f4-b91e8a52bf14",
+  "https://github.com/user-attachments/assets/f2d6f18f-56dc-431a-aef7-f1c02811caee",
+  "https://github.com/user-attachments/assets/91f956b3-5019-4b0e-86da-dac8c70def2f",
+  "https://github.com/user-attachments/assets/f6984ea5-4d50-4e13-a09f-9bd644c7aefd",
+  "https://github.com/user-attachments/assets/7919e251-3cd9-442c-9651-4f16712d9e0d",
+  "https://github.com/user-attachments/assets/1864a9cf-5003-48c4-b79f-68ab1081afa1",
+  "https://github.com/user-attachments/assets/990fe2d4-ab25-4d14-a652-de0d81c5c9c9",
+  "https://github.com/user-attachments/assets/9d143eb9-8a8a-42f5-a24f-8736ce9deb7c",
+  "https://github.com/user-attachments/assets/8eb86377-03c7-474b-80e6-f7687633229f",
+  "https://github.com/user-attachments/assets/08925e37-abb6-48ab-93bf-e01bcb272fc9",
+  "https://github.com/user-attachments/assets/c5995292-1c04-4826-a194-ea214b96a97a",
+  "https://github.com/user-attachments/assets/ded1970f-41d5-414b-aabc-b5d024b1e88f",
+  "https://github.com/user-attachments/assets/eb1e96e0-87cd-44c8-9fe2-27543e805b75",
+  "https://github.com/user-attachments/assets/169eb5a4-965d-419b-92ea-429cc1627302",
+  "https://github.com/user-attachments/assets/27ac79a8-8d05-44b8-88fd-cbb9dcaa4a5d",
+  "https://github.com/user-attachments/assets/5ff12308-d3f4-4c8b-b84f-a03700b71e2f",
+  "https://github.com/user-attachments/assets/ec520867-6142-42a2-9cc4-059c2c4ed7d1",
+  "https://github.com/user-attachments/assets/b12db0f8-063a-4d85-83ba-69a0dded2fd6",
+  "https://github.com/user-attachments/assets/7f2d9110-5560-46c2-98b2-132def8fad4e",
+  "https://github.com/user-attachments/assets/930cb730-5e42-451e-ae5c-b6af77132044",
+  "https://github.com/user-attachments/assets/67d6bb73-6e0d-4771-9e48-46ac0cb0c7f5",
+  "https://github.com/user-attachments/assets/6c265a1b-b514-40ff-89f5-898fbe6d94e1",
+  "https://github.com/user-attachments/assets/01a44a9f-07df-4437-881d-235a9d509a9f",
+  "https://github.com/user-attachments/assets/2b530d98-8162-45cb-99b6-8453972fb906",
+  "https://github.com/user-attachments/assets/e9db29b9-6ab7-4fb8-a6d6-421759a722ff",
+  "https://github.com/user-attachments/assets/13163504-3c0e-4b26-9e9e-8901a257b32a",
+  "https://github.com/user-attachments/assets/f3761440-c5e8-4650-b807-fbc7806f425c",
+  "https://github.com/user-attachments/assets/c6d0274b-c80d-44b7-8f12-46f4dcafd38a",
+  "https://github.com/user-attachments/assets/3ecbe57b-c6bc-4f2c-939a-025bd5601d12",
+  "https://github.com/user-attachments/assets/81237dd0-3d98-4156-983a-445cd83bfba1",
+  "https://github.com/user-attachments/assets/2ceb50d2-68bb-4e78-967d-7c02330af2e8",
+  "https://github.com/user-attachments/assets/91bcf5f4-407e-4ee1-9d72-389556be57cb",
+  "https://github.com/user-attachments/assets/caf3f6ca-0285-43d1-a621-2b43f8ca252c",
+  "https://github.com/user-attachments/assets/5765bc91-0328-48f7-bc63-8ca188531b66",
+  "https://github.com/user-attachments/assets/0ac35899-b09e-4f18-ae9b-3312a31e22fa",
+  "https://github.com/user-attachments/assets/4c6511d5-d2d0-40fd-bd6a-856b531d7d1f",
+  "https://github.com/user-attachments/assets/bc441e83-f5e4-458c-a70e-68d6e3713432",
+  "https://github.com/user-attachments/assets/c77dcb7b-f766-40bd-8caa-c4d8c9926fa1",
+  "https://github.com/user-attachments/assets/d7fd3b60-dce8-4dab-97a4-7cc77eb67abe",
+  "https://github.com/user-attachments/assets/b4028c8c-6b92-42f1-8fc9-c1937584648f",
+  "https://github.com/user-attachments/assets/84e2f57d-f58a-4935-8d95-b881a84886fd",
+  "https://github.com/user-attachments/assets/47629ad6-ea3a-4ceb-b177-2574a0084829",
+  "https://github.com/user-attachments/assets/7a2f4343-7e3b-4115-ab00-bf5760aa2987",
+  "https://github.com/user-attachments/assets/f9449789-b7ab-4332-9ea0-291c750b1511"
+];
+
         const STATE = {
             mode: 'TREE', 
             focusIndex: -1, 
@@ -806,17 +871,22 @@
 //   - @Style: Luxury Dashboard UI (Hidden by default, toggle with 'S')
 // --> 
         function loadPredefinedImages() {
-            const loader = new THREE.TextureLoader();
-            if (CONFIG.preload.autoScanLocal) {
-                for (let i = 1; i <= CONFIG.preload.scanCount; i++) {
-                    const pathJpg = `./images/(${i}).jpg`;
-                    const pathPng = `./images/(${i}).png`;
-                    loader.load(pathJpg, (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); }, undefined, () => {
-                             loader.load(pathPng, (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); }, undefined, () => {} );
-                    });
-                }
+    const loader = new THREE.TextureLoader();
+
+    PHOTO_URLS.forEach((url) => {
+        loader.load(
+            url,
+            (t) => {
+                t.colorSpace = THREE.SRGBColorSpace;
+                addPhotoToScene(t);
+            },
+            undefined,
+            (err) => {
+                console.warn("Failed to load image:", url);
             }
-        }
+        );
+    });
+}
 
         function showMsg(txt) {
             const box = document.getElementById('msg-box');
@@ -968,3 +1038,4 @@
     </script>
 </body>
 </html>
+
