@@ -493,7 +493,7 @@
             createParticles(); 
             createDust();
             createSnow();
-            loadPredefinedImages();
+            loadImagesFromGitHubIssues();
             setupPostProcessing();
             setupEvents();
             setupTouchAndClick(); 
@@ -870,19 +870,32 @@
 //   - @Description: 3D Christmas tree with AI Gestures + Touch + Traffic Analytics.
 //   - @Style: Luxury Dashboard UI (Hidden by default, toggle with 'S')
 // --> 
-        async function loadPredefinedImages() {
-    const loader = new THREE.TextureLoader();
-    loader.setCrossOrigin("anonymous");
+        function loadImagesFromGitHubIssues() {
+    const urls = [
+        "https://github.com/user-attachments/assets/276fc558-c31a-40a8-8742-688b8610222d",
+        "https://github.com/user-attachments/assets/bde0540a-6f64-4f9a-a4cd-a9e84d58a30e",
+        "https://github.com/user-attachments/assets/12f9c58a-0a6d-4dc9-a9fa-0a5203250b8a",
+        "https://github.com/user-attachments/assets/9a3b532b-26dc-417a-a552-87bef08f9141"
+        // 👉 thêm tiếp các ảnh khác (62 ảnh OK)
+    ];
 
-    for (const url of PHOTO_URLS) {
-        try {
-            const texture = await loader.loadAsync(url);
-            texture.colorSpace = THREE.SRGBColorSpace;
-            addPhotoToScene(texture);
-        } catch (e) {
-            console.warn("Failed:", url);
-        }
-    }
+    const loader = new THREE.TextureLoader();
+    loader.setCrossOrigin('anonymous');
+
+    urls.forEach((url, i) => {
+        loader.load(
+            url,
+            (texture) => {
+                texture.colorSpace = THREE.SRGBColorSpace;
+                addPhotoToScene(texture);
+                console.log("✅ Loaded image", i + 1);
+            },
+            undefined,
+            (err) => {
+                console.warn("❌ Failed to load", url, err);
+            }
+        );
+    });
 }
 
         function showMsg(txt) {
@@ -1032,11 +1045,12 @@
 //   - @Style: Luxury Dashboard UI (Hidden by default, toggle with 'S')
 // --> 
         init();
-        loadPredefinedImages();
+        // loadPredefinedImages();
         animate();
     </script>
 </body>
 </html>
+
 
 
 
