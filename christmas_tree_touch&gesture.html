@@ -870,22 +870,19 @@
 //   - @Description: 3D Christmas tree with AI Gestures + Touch + Traffic Analytics.
 //   - @Style: Luxury Dashboard UI (Hidden by default, toggle with 'S')
 // --> 
-        function loadPredefinedImages() {
+        async function loadPredefinedImages() {
     const loader = new THREE.TextureLoader();
+    loader.setCrossOrigin("anonymous");
 
-    PHOTO_URLS.forEach((url) => {
-        loader.load(
-            url,
-            (t) => {
-                t.colorSpace = THREE.SRGBColorSpace;
-                addPhotoToScene(t);
-            },
-            undefined,
-            (err) => {
-                console.warn("Failed to load image:", url);
-            }
-        );
-    });
+    for (const url of PHOTO_URLS) {
+        try {
+            const texture = await loader.loadAsync(url);
+            texture.colorSpace = THREE.SRGBColorSpace;
+            addPhotoToScene(texture);
+        } catch (e) {
+            console.warn("Failed:", url);
+        }
+    }
 }
 
         function showMsg(txt) {
@@ -1038,4 +1035,5 @@
     </script>
 </body>
 </html>
+
 
