@@ -828,13 +828,25 @@
         function loadPredefinedImages(callback) {
     const loader = new THREE.TextureLoader();
     let loadedCount = 0;
+    const total = CONFIG.preload.images.length;
+
     CONFIG.preload.images.forEach(path => {
-        loader.load(path, (t) => {
-            t.colorSpace = THREE.SRGBColorSpace;
-            addPhotoToScene(t);
-            loadedCount++;
-            if (loadedCount === CONFIG.preload.images.length && callback) callback();
-        });
+        loader.load(
+            path,
+            (texture) => { // onLoad
+                texture.colorSpace = THREE.SRGBColorSpace;
+                addPhotoToScene(texture);
+                loadedCount++;
+                console.log(`Loaded: ${path} (${loadedCount}/${total})`);
+                if (loadedCount === total && callback) callback();
+            },
+            undefined, // onProgress
+            (err) => { // onError
+                loadedCount++;
+                console.warn(`Failed to load: ${path} (${loadedCount}/${total})`);
+                if (loadedCount === total && callback) callback();
+            }
+        );
     });
 }
 
@@ -987,6 +999,7 @@
     </script>
 </body>
 </html>
+
 
 
 
