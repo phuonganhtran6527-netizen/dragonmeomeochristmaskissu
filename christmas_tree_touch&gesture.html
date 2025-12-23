@@ -10,7 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Grand Luxury Tree - Christmas Edition</title>
+    <title>Christmas Kissu for Doan</title>
     
     <!-- 引入 FontAwesome 图标库 (让图标更美观) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
@@ -359,6 +359,13 @@
         import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
         import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'; 
         import { FilesetResolver, HandLandmarker } from '@mediapipe/tasks-vision';
+        const GITHUB_USERNAME = "phuonganhtran6527"; 
+        const GITHUB_REPO = "https://phuonganhtran6527-netizen.github.io/dragonmeomeochristmaskissu/";     
+        const GITHUB_BRANCH = "main";            
+        const PHOTO_COUNT = 41;               
+        const PHOTO_URLS = Array.from({ length: PHOTO_COUNT }, (_, i) =>
+          `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/photos/${String(i + 1).padStart(2,'0')}.jpg`
+        );
 
         // --- 核心配置 ---
         const CONFIG = {
@@ -383,14 +390,7 @@
                 images: []
             }
         };
-
-            /* ===============================
-           PHOTO CONFIG (LOCAL)
-        ================================ */
-        const PHOTO_URLS = Array.from({ length: 62 }, (_, i) =>
-          `photos/${String(i + 1).padStart(2, '0')}.jpg`
-        );
-
+      
         const STATE = {
             mode: 'TREE', 
             focusIndex: -1, 
@@ -428,24 +428,21 @@
         };
 
         async function init() {
-            initThree();
-            setupEnvironment(); 
-            setupLights();
-            createTextures();
-            createParticles(); 
-            createDust();
-            createSnow();
-            loadImagesFromGitHubIssues();
-            setupPostProcessing();
-            setupEvents();
-            setupTouchAndClick(); 
-            
-            const loader = document.getElementById('loader');
-            loader.style.opacity = 0;
-            setTimeout(() => loader.remove(), 800);
-
-            animate();
-        }
+                initThree();
+                setupEnvironment();
+                setupLights();
+                createTextures();
+                createParticles();
+                createDust();
+                createSnow();
+                await loadPredefinedImages();
+                setupPostProcessing();
+                setupEvents();
+                setupTouchAndClick();
+                document.getElementById('loader').style.opacity=0;
+                setTimeout(()=>document.getElementById('loader').remove(),800);
+                animate();
+            }
 // <!--
 //   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture & Stats)
 //   - @Author: wp/electronicminer
@@ -535,7 +532,27 @@
             mainGroup = new THREE.Group();
             scene.add(mainGroup);
         }
-
+        function addPhotoToScene(texture) {
+            const frameGeo = new THREE.BoxGeometry(1.4,1.4,0.05);
+            const frameMat = new THREE.MeshStandardMaterial({ color: CONFIG.colors.champagneGold, metalness:1, roughness:0.1 });
+            const frame = new THREE.Mesh(frameGeo, frameMat);
+            let width = 1.2, height = 1.2;
+            if(texture.image) {
+                const aspect = texture.image.width / texture.image.height;
+                if(aspect>1) height = width/aspect; else width = height*aspect;
+            }
+            const photoGeo = new THREE.PlaneGeometry(width,height);
+            const photoMat = new THREE.MeshBasicMaterial({ map:texture, side:THREE.DoubleSide });
+            const photo = new THREE.Mesh(photoGeo, photoMat);
+            photo.position.z=0.04;
+            const group = new THREE.Group();
+            group.add(frame); group.add(photo);
+            frame.scale.set(width/1.2,height/1.2,1);
+            const s = 0.8; group.scale.set(s,s,s);
+            photoMeshGroup.add(group);
+            particleSystem.push(new Particle(group,'PHOTO',false));
+            updatePhotoLayout();
+        }
         function setupEnvironment() {
             const pmremGenerator = new THREE.PMREMGenerator(renderer);
             scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture;
@@ -813,17 +830,16 @@
 //   - @Style: Luxury Dashboard UI (Hidden by default, toggle with 'S')
 // --> 
         async function loadPredefinedImages() {
-          console.log("📸 Loading photos:", PHOTO_URLS);
-        
-          for (const url of PHOTO_URLS) {
-            try {
-              const texture = await new THREE.TextureLoader().loadAsync(url);
-              addPhotoToScene(texture);
-              console.log("✅ Loaded:", url);
-            } catch (e) {
-              console.error("❌ Failed:", url, e);
+            console.log("📸 Loading photos from GitHub:", PHOTO_URLS);
+            for(const url of PHOTO_URLS) {
+                try {
+                    const texture = await new THREE.TextureLoader().loadAsync(url);
+                    addPhotoToScene(texture);
+                    console.log("✅ Loaded:", url);
+                } catch(e) {
+                    console.error("❌ Failed to load:", url, e);
+                }
             }
-          }
         }
       
         function showMsg(txt) {
@@ -976,6 +992,7 @@
     </script>
 </body>
 </html>
+
 
 
 
