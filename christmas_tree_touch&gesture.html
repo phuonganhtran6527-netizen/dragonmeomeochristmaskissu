@@ -417,8 +417,6 @@
                 ]
             }
         };
-            }
-        };
 
         const STATE = {
             mode: 'TREE', 
@@ -464,17 +462,18 @@
             createParticles(); 
             createDust();
             createSnow();
-            loadPredefinedImages();
             setupPostProcessing();
             setupEvents();
             setupTouchAndClick(); 
-            
-            const loader = document.getElementById('loader');
-            loader.style.opacity = 0;
-            setTimeout(() => loader.remove(), 800);
-
+            loadPredefinedImages(() => {
+                const loaderEl = document.getElementById('loader');
+                loaderEl.style.opacity = 0;
+                setTimeout(() => loaderEl.remove(), 800);
+            });
+        
             animate();
         }
+
 // <!--
 //   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture & Stats)
 //   - @Author: wp/electronicminer
@@ -826,16 +825,18 @@
 //   - @Description: 3D Christmas tree with AI Gestures + Touch + Traffic Analytics.
 //   - @Style: Luxury Dashboard UI (Hidden by default, toggle with 'S')
 // --> 
-        function loadPredefinedImages() {
-            const loader = new THREE.TextureLoader();
-            CONFIG.preload.images.forEach(path => {
-                loader.load(path, (t) => {
-                    t.colorSpace = THREE.SRGBColorSpace;
-                    addPhotoToScene(t);
-                });
-            });
-        }
-
+        function loadPredefinedImages(callback) {
+    const loader = new THREE.TextureLoader();
+    let loadedCount = 0;
+    CONFIG.preload.images.forEach(path => {
+        loader.load(path, (t) => {
+            t.colorSpace = THREE.SRGBColorSpace;
+            addPhotoToScene(t);
+            loadedCount++;
+            if (loadedCount === CONFIG.preload.images.length && callback) callback();
+        });
+    });
+}
 
         function showMsg(txt) {
             const box = document.getElementById('msg-box');
@@ -986,6 +987,7 @@
     </script>
 </body>
 </html>
+
 
 
 
