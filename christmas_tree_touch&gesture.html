@@ -521,7 +521,9 @@
             camera.position.set(0, 2, CONFIG.camera.z); 
             renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
             renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            renderer.setPixelRatio(
+              IS_MOBILE ? 1 : Math.min(window.devicePixelRatio, 2)
+            );
             renderer.toneMapping = THREE.ReinhardToneMapping; 
             renderer.toneMappingExposure = 2.2; 
             container.appendChild(renderer.domElement);
@@ -557,8 +559,10 @@
             bloomPass.threshold = 0.65; bloomPass.strength = 0.5; bloomPass.radius = 0.4;
             composer = new EffectComposer(renderer);
             composer.addPass(renderScene);
-            composer.addPass(bloomPass);
-        }
+            
+            if (!IS_MOBILE) {
+              composer.addPass(bloomPass);
+            }
 
         function createTextures() {
             const canvas = document.createElement('canvas');
@@ -840,9 +844,7 @@
           baseOptions: {
             modelAssetPath:
               "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
-            delegate: /iPhone|iPad|Android/i.test(navigator.userAgent)
-              ? "CPU"
-              : "GPU"
+            delegate: IS_MOBILE ? "CPU" : "GPU"
           },
           runningMode: "VIDEO",
           numHands: 1
@@ -1002,6 +1004,7 @@
     </script>
 </body>
 </html>
+
 
 
 
