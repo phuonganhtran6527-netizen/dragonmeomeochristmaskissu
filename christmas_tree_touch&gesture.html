@@ -359,12 +359,6 @@
         import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
         import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'; 
         import { FilesetResolver, HandLandmarker } from '@mediapipe/tasks-vision';
-        const GITHUB_USERNAME = "phuonganhtran6527"; 
-        const GITHUB_REPO = "https://phuonganhtran6527-netizen.github.io/dragonmeomeochristmaskissu/";     
-        const GITHUB_BRANCH = "main";            
-        const PHOTO_COUNT = 41;               
-        const PHOTO_URLS = Array.from({ length: PHOTO_COUNT }, (_, i) =>
-          `https://raw.githubusercontent.com/${GITHUB_USERNAME}/${GITHUB_REPO}/${GITHUB_BRANCH}/photos/${String(i + 1).padStart(2,'0')}.jpg`
         );
 
         // --- 核心配置 ---
@@ -390,7 +384,10 @@
                 images: []
             }
         };
-      
+
+        const PHOTO_COUNT = 41;
+        const PHOTO_URLS = Array.from({length:PHOTO_COUNT},(_,i)=>`https://raw.githubusercontent.com/phuonganhtran6527/phuonganhtran6527-netizen.github.io/main/photos/${String(i+1).padStart(2,'0')}.jpg`);
+
         const STATE = {
             mode: 'TREE', 
             focusIndex: -1, 
@@ -403,6 +400,7 @@
         let scene, camera, renderer, composer;
         let mainGroup; 
         let clock = new THREE.Clock();
+        let let treeParticles=[],photoParticles=[]; 
         let particleSystem = []; 
         let photoMeshGroup = new THREE.Group();
         let handLandmarker, video;
@@ -419,13 +417,13 @@
         window.setMode = (mode) => {
             if (mode === 'FOCUS_RANDOM') {
                 STATE.mode = 'FOCUS';
-                const photos = particleSystem.filter(p => p.type === 'PHOTO');
-                if (photos.length) STATE.focusTarget = photos[Math.floor(Math.random()*photos.length)].mesh;
-            } else {
-                STATE.mode = mode;
-                if (mode === 'TREE') STATE.focusTarget = null;
-            }
-        };
+                const photos=photoParticles;
+                if(photos.length) STATE.focusTarget=photos[Math.floor(Math.random()*photos.length)].mesh;
+              } else {
+                STATE.mode=mode;
+                if(mode==='TREE') STATE.focusTarget=null;
+              }
+            };
 
         async function init() {
                 initThree();
@@ -829,17 +827,13 @@
 //   - @Description: 3D Christmas tree with AI Gestures + Touch + Traffic Analytics.
 //   - @Style: Luxury Dashboard UI (Hidden by default, toggle with 'S')
 // --> 
-        async function loadPredefinedImages() {
-            console.log("📸 Loading photos from GitHub:", PHOTO_URLS);
-            for(const url of PHOTO_URLS) {
-                try {
-                    const texture = await new THREE.TextureLoader().loadAsync(url);
-                    addPhotoToScene(texture);
-                    console.log("✅ Loaded:", url);
-                } catch(e) {
-                    console.error("❌ Failed to load:", url, e);
-                }
-            }
+                async function loadPredefinedImages(){
+          for(const url of PHOTO_URLS){
+            try{
+              const texture=await new THREE.TextureLoader().loadAsync(url);
+              addPhotoToScene(texture);
+            } catch(e){ console.warn("Failed:", url,e); }
+          }
         }
       
         function showMsg(txt) {
@@ -992,6 +986,7 @@
     </script>
 </body>
 </html>
+
 
 
 
