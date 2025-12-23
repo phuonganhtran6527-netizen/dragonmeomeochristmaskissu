@@ -843,14 +843,14 @@
         const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
 
         handLandmarker = await HandLandmarker.createFromOptions(vision, {
-          baseOptions: {
-            modelAssetPath:
-              "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
-            delegate: isIOS ? "CPU" : "GPU"
-          },
-          runningMode: "VIDEO",
-          numHands: 1
-        });
+        baseOptions: {
+          modelAssetPath:
+            "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+          delegate: isIOS ? "CPU" : "GPU"
+        },
+        runningMode: "VIDEO",
+        numHands: 1
+      });
 
                const constraints = {
           audio: false,
@@ -1006,6 +1006,7 @@
     </script>
 </body>
 </html>
+
 
 
 
