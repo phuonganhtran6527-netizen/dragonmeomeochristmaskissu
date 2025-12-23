@@ -344,7 +344,6 @@
 
     <div id="debug-info">Drag to rotate • Tap photo to view</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/vision_bundle.js"></script>
 
     <script type="module">
         import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js';
@@ -357,7 +356,9 @@
         import { FilesetResolver, HandLandmarker } from 'https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/+esm';
 
         // --- 核心配置 ---
-        const CONFIG = {
+      const IS_MOBILE = /iPhone|iPad|Android/i.test(navigator.userAgent);
+  
+      const CONFIG = {
             colors: {
                 bg: 0x050d1a, 
                 fog: 0x050d1a,
@@ -366,13 +367,14 @@
                 accentRed: 0x990000,     
             },
             particles: {
-                count: 1000,     
-                dustCount: 1000, 
-                snowCount: 500,
-                treeHeight: 24,  
-                treeRadius: 8    
+                count: IS_MOBILE ? 350 : 1000,
+                dustCount: IS_MOBILE ? 200 : 1000,
+                snowCount: IS_MOBILE ? 150 : 500,
+                treeHeight: 24,
+                treeRadius: 8
             },
-            camera: { z: 50 },
+            camera: { z: IS_MOBILE ? 65 : 50 }
+
             preload: {
                 autoScanLocal: false,
                 images: Array.from({length: 41}, (_, i) => 
@@ -825,6 +827,9 @@
     camBtn.innerText = "Initializing...";
     debugInfo.innerText = "Loading AI models...";
     video = document.getElementById('webcam');
+    video.setAttribute("playsinline", "");
+    video.setAttribute("webkit-playsinline", "");
+    video.muted = true;
 
     try {
         const vision = await FilesetResolver.forVisionTasks(
@@ -832,20 +837,24 @@
         );
 
         handLandmarker = await HandLandmarker.createFromOptions(vision, {
-            baseOptions: {
-                modelAssetPath:
-                  "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"
-            },
-            runningMode: "VIDEO",
-            numHands: 1
+          baseOptions: {
+            modelAssetPath:
+              "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task",
+            delegate: /iPhone|iPad|Android/i.test(navigator.userAgent)
+              ? "CPU"
+              : "GPU"
+          },
+          runningMode: "VIDEO",
+          numHands: 1
         });
 
-        const constraints = {
-            video: {
-                facingMode: "user",
-                width: { ideal: 320 },
-                height: { ideal: 240 }
-            }
+               const constraints = {
+          audio: false,
+          video: {
+            facingMode: { ideal: "user" },
+            width: { min: 160, ideal: 320, max: 640 },
+            height: { min: 120, ideal: 240, max: 480 }
+          }
         };
 
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
@@ -984,10 +993,16 @@
 //   - @Description: 3D Christmas tree with AI Gestures + Touch + Traffic Analytics.
 //   - @Style: Luxury Dashboard UI (Hidden by default, toggle with 'S')
 // --> 
-        init();
+        window.addEventListener("pointerdown", () => {
+  if (!window.__started) {
+    window.__started = true;
+    init();
+  }
+}, { once: true });
     </script>
 </body>
 </html>
+
 
 
 
