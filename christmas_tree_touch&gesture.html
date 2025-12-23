@@ -294,13 +294,6 @@
         <div class="controls-wrapper">
             <div class="btn-group">
                 <div class="control-btn" id="cam-btn">📷 Enable Gesture</div>
-                <label class="control-btn">
-                    Select Folder
-                    <input type="file" id="folder-input" webkitdirectory directory multiple>
-                </label>
-                <label class="control-btn">
-                    Select Files
-                    <input type="file" id="file-input" multiple accept="image/*">
                 </label>
             </div>
             <!-- 【修改】添加了 Press 'S' for Stats 的提示 -->
@@ -828,21 +821,6 @@
             updatePhotoLayout();
         }
 
-        function handleImageUpload(e) {
-            const files = e.target.files;
-            if(!files.length) return;
-            Array.from(files).forEach(f => {
-                if (!f.type.startsWith('image/')) return;
-                const reader = new FileReader();
-                reader.onload = (ev) => {
-                    new THREE.TextureLoader().load(ev.target.result, (t) => {
-                        t.colorSpace = THREE.SRGBColorSpace;
-                        addPhotoToScene(t);
-                    });
-                }
-                reader.readAsDataURL(f);
-            });
-        }
 //         <!--
 //   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture & Stats)
 //   - @Author: wp/electronicminer
@@ -951,8 +929,7 @@
                 renderer.setSize(window.innerWidth, window.innerHeight);
                 composer.setSize(window.innerWidth, window.innerHeight);
             });
-            document.getElementById('file-input').addEventListener('change', handleImageUpload);
-            document.getElementById('folder-input').addEventListener('change', handleImageUpload);
+           
             camBtn.addEventListener('click', () => { initMediaPipe(); });
             window.addEventListener('keydown', (e) => {
                 const key = e.key.toLowerCase();
@@ -1013,5 +990,6 @@
     </script>
 </body>
 </html>
+
 
 
