@@ -352,7 +352,6 @@
         import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
         import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js'; 
         import { FilesetResolver, HandLandmarker } from '@mediapipe/tasks-vision';
-        const photoPaths = Array.from({length: 41}, (_, i) => `photos/${i + 1}.jpeg`);
 
         // --- 核心配置 ---
         const CONFIG = {
@@ -372,8 +371,7 @@
             },
             camera: { z: 50 },
             preload: {
-                autoScanLocal: true,
-                scanCount: 200, 
+                autoScanLocal: false,
                 images: [
                       '1.jpeg',
                       '2.jpeg',
@@ -830,16 +828,14 @@
 // --> 
         function loadPredefinedImages() {
             const loader = new THREE.TextureLoader();
-            if (CONFIG.preload.autoScanLocal) {
-                for (let i = 1; i <= CONFIG.preload.scanCount; i++) {
-                    const pathJpeg = `./images/(${i}).jpeg`;
-                    const pathPng = `./images/(${i}).png`;
-                    loader.load(pathJpeg, (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); }, undefined, () => {
-                             loader.load(pathPng, (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); }, undefined, () => {} );
-                    });
-                }
-            }
+            CONFIG.preload.images.forEach(path => {
+                loader.load(path, (t) => {
+                    t.colorSpace = THREE.SRGBColorSpace;
+                    addPhotoToScene(t);
+                });
+            });
         }
+
 
         function showMsg(txt) {
             const box = document.getElementById('msg-box');
@@ -990,6 +986,7 @@
     </script>
 </body>
 </html>
+
 
 
 
