@@ -818,38 +818,60 @@
         }
 
         async function initMediaPipe() {
-            if (isCameraRunning) return;
-            camBtn.innerText = "Initializing...";
-            debugInfo.innerText = "Loading AI models...";
-            video = document.getElementById('webcam');
-            try {
-                const vision = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm");
-                handLandmarker = await HandLandmarker.createFromOptions(vision, {
-                baseOptions: {
-                  modelAssetPath: "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"
-                },
-                runningMode: "VIDEO",
-                numHands: 1
-              });
+    if (isCameraRunning) return;
 
-                const constraints = { video: { facingMode: "user", width: { ideal: 320 }, height: { ideal: 240 } } };
-                const stream = await navigator.mediaDevices.getUserMedia(constraints);
-                video.srcObject = stream;
-                video.addEventListener("loadeddata", predictWebcam);
-                document.getElementById('webcam-wrapper').style.opacity = 1;
-                debugInfo.innerText = "Gesture Active: Show Hand";
-                camBtn.innerText = "Gesture Active";
-                camBtn.classList.add('active');
-                isCameraRunning = true;
-            } catch(e) {
-                console.warn("Camera error:", e);
-                let msg = "Camera Error: " + e.name;
-                if (e.name === 'NotAllowedError' || e.name === 'PermissionDeniedError') msg = "Please allow camera access!";
-                else if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') msg = "HTTPS required for camera!";
-                debugInfo.innerText = msg; showMsg(msg);
-                camBtn.innerText = "Retry Camera";
+    camBtn.innerText = "Initializing...";
+    debugInfo.innerText = "Loading AI models...";
+    video = document.getElementById('webcam');
+
+    try {
+        const vision = await FilesetResolver.forVisionTasks(
+            "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
+        );
+
+        handLandmarker = await HandLandmarker.createFromOptions(vision, {
+            baseOptions: {
+                modelAssetPath:
+                  "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task"
+            },
+            runningMode: "VIDEO",
+            numHands: 1
+        });
+
+        const constraints = {
+            video: {
+                facingMode: "user",
+                width: { ideal: 320 },
+                height: { ideal: 240 }
             }
-        }
+        };
+
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = stream;
+
+        await video.play();
+
+        video.addEventListener("loadeddata", () => {
+            lastVideoTime = -1;
+            predictWebcam();
+        });
+
+        document.getElementById('webcam-wrapper').style.opacity = 1;
+        camBtn.innerText = "Gesture Active";
+        camBtn.classList.add('active');
+        debugInfo.innerText = "Gesture Active";
+        isCameraRunning = true;
+
+    } catch (e) {
+        console.warn("Camera error:", e);
+        let msg = "Camera Error";
+        if (e.name === 'NotAllowedError') msg = "Please allow camera access";
+        if (location.protocol !== 'https:') msg = "HTTPS required on mobile";
+        debugInfo.innerText = msg;
+        camBtn.innerText = "Retry Camera";
+    }
+}
+
 // <!--
 //   - @Project: Grand Luxury Tree - Christmas Edition (Touch & Gesture & Stats)
 //   - @Author: wp/electronicminer
@@ -964,6 +986,7 @@
     </script>
 </body>
 </html>
+
 
 
 
