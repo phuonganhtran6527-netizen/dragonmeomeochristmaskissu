@@ -363,9 +363,9 @@
                 accentRed: 0x990000,     
             },
             particles: {
-                count: 1500,     
-                dustCount: 2000, 
-                snowCount: 1000,
+                count: 1000,     
+                dustCount: 1000, 
+                snowCount: 500,
                 treeHeight: 24,  
                 treeRadius: 8    
             },
@@ -378,25 +378,21 @@
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/3.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/4.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/5.jpeg',
-                    'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/6.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/7.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/8.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/9.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/10.jpeg',
-                    'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/11.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/12.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/13.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/14.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/15.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/16.jpeg',
-                    'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/17.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/18.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/19.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/20.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/21.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/22.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/23.jpeg',
-                    'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/24.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/25.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/26.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/27.jpeg',
@@ -404,13 +400,9 @@
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/29.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/30.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/31.jpeg',
-                    'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/32.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/33.jpeg',
-                    'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/34.jpeg',
-                    'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/35.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/36.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/37.jpeg',
-                    'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/38.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/39.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/40.jpeg',
                     'https://github.com/phuonganhtran6527-netizen/dragonmeomeochristmaskissu/raw/main/photos/41.jpeg'
@@ -866,7 +858,7 @@
                     baseOptions: { modelAssetPath: `https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task`, delegate: "GPU" },
                     runningMode: "VIDEO", numHands: 1
                 });
-                const constraints = { video: { facingMode: "user", width: { ideal: 640 }, height: { ideal: 480 } } };
+                const constraints = { video: { facingMode: "user", width: { ideal: 320 }, height: { ideal: 240 } } };
                 const stream = await navigator.mediaDevices.getUserMedia(constraints);
                 video.srcObject = stream;
                 video.addEventListener("loadeddata", predictWebcam);
@@ -998,6 +990,7 @@
     </script>
 </body>
 </html>
+
 
 
 
