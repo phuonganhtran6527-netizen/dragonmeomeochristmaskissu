@@ -809,9 +809,9 @@
             const loader = new THREE.TextureLoader();
             if (CONFIG.preload.autoScanLocal) {
                 for (let i = 1; i <= CONFIG.preload.scanCount; i++) {
-                    const pathJpg = `./images/(${i}).jpg`;
+                    const pathJpeg = `./images/(${i}).jpeg`;
                     const pathPng = `./images/(${i}).png`;
-                    loader.load(pathJpg, (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); }, undefined, () => {
+                    loader.load(pathJpeg, (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); }, undefined, () => {
                              loader.load(pathPng, (t) => { t.colorSpace = THREE.SRGBColorSpace; addPhotoToScene(t); }, undefined, () => {} );
                     });
                 }
@@ -968,3 +968,4 @@
     </script>
 </body>
 </html>
+
